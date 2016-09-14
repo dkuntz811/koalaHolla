@@ -72,12 +72,17 @@ app.post( '/addKoala', urlencodedParser, function( req, res ){
 
 
 // add koala
-app.post( '/editKoala', urlencodedParser, function( req, res ){
+app.put( '/editKoala', urlencodedParser, function( req, res ){
   console.log( 'editKoala route hit' );
-  //assemble object to send
-  var objectToSend={
-    response: 'from editKoala route'
-  }; //end objectToSend
-  //send info back to client
-  res.send( objectToSend );
-});
+//   //assemble object to send
+//   pg.connect(connectionString, function(err,client,done){
+//     if (err) {
+//       console.log(err);
+//     }else {
+//       console.log('connect to DB for edited koala ');
+//       client.query('UPDATE koalas SET name,sex, age,ready_transfer,notes ',
+//       [req.body.name, req.body.sex, req.body.age, req.body.readyForTransfer, req.body.notes],
+//         done());
+//     }//else
+//   });
+// });

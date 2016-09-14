@@ -21,6 +21,17 @@ $( document ).ready( function(){
     // call saveKoala with the new obejct
     saveKoala( objectToSend );
   }); //end addButton on click
+  
+$('#editKoala').on('click',function(){
+  var objectToSend = {
+    name: $('#nameEditIn').val(),
+    sex: $('#sexEditIn').val(),
+    age: $('#ageEditIn').val(),
+    readyForTransfer: $('#readyForTransferEditIn').val(),
+    notes: $('#notesEditIn').val()
+  };//end objectToSend editKoala
+editKoala(objectToSend);
+});
 }); // end doc ready
 
 var getKoalas = function(){
@@ -31,10 +42,13 @@ var getKoalas = function(){
     type: 'GET',
     success: function( data ){
       console.log( 'got some koalas: ', data );
-      data.forEach(function(data){
-        var $el = $('<li id ="list"></li>');
-        $el.data()
-      });
+      var outputDiv = $('#viewKoalas');
+      outputDiv.empty();
+
+      outputDiv.append('<ul>');
+      for (var i = 0; i < data.length; i++) {
+         outputDiv.append('<li>' + data[i].name +' '+ data[i].sex + ' ' + data[i].age + ' ' + data[i].ready_transfer + ' '+ data[i].notes + '<li>');
+      }
     } // end success
   }); //end ajax
   // display on DOM with buttons that allow edit of each
@@ -52,4 +66,18 @@ var saveKoala = function( newKoala ){
       console.log( 'got some koalas: ', data );
     } // end success
   }); //end ajax
-};
+};//end saveKoala function
+
+
+var editKoala = function( editKoala ){
+  console.log('in editKoala', editKoala);
+
+    $.ajax({
+      url: '/editKoala',
+      type: 'PUT',
+      data: editKoala,
+      success: function(data){
+        console.log('success for editKoala ', data);
+      }
+  });//end ajax
+};//end editKoala functions
